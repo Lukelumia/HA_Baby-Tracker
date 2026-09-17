@@ -1,0 +1,13 @@
+{
+  "domain": "babytracker",
+  "name": "Baby Tracker",
+  "codeowners": ["@Lukelumia"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/Lukelumia/HA_Baby-Tracker",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Lukelumia/HA_Baby-Tracker/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
