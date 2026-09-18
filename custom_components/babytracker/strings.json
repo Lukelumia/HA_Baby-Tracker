@@ -11,6 +11,15 @@
           "email": "The email address of your Baby Tracker account.",
           "password": "The password of your Baby Tracker account."
         }
+      },
+      "reauth_confirm": {
+        "description": "The Baby Tracker account {email} rejected the stored password. Enter the current one to reconnect.",
+        "data": {
+          "password": "Password"
+        },
+        "data_description": {
+          "password": "The password of your Baby Tracker account."
+        }
       }
     },
     "error": {
@@ -19,7 +28,190 @@
       "unknown": "Unexpected error"
     },
     "abort": {
-      "already_configured": "Account is already configured"
+      "already_configured": "Account is already configured",
+      "reauth_successful": "Reconnected to Baby Tracker"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "sleeping": {
+        "name": "Sleeping"
+      }
+    },
+    "image": {
+      "photo": {
+        "name": "Photo"
+      }
+    },
+    "sensor": {
+      "last_feed": {
+        "name": "Last feed"
+      },
+      "last_nursing": {
+        "name": "Last nursing"
+      },
+      "last_bottle": {
+        "name": "Last bottle"
+      },
+      "last_formula": {
+        "name": "Last formula"
+      },
+      "last_pumped": {
+        "name": "Last expressed milk"
+      },
+      "last_other_feed": {
+        "name": "Last other feed"
+      },
+      "last_diaper": {
+        "name": "Last diaper"
+      },
+      "last_wet_diaper": {
+        "name": "Last wet diaper"
+      },
+      "last_dirty_diaper": {
+        "name": "Last dirty diaper"
+      },
+      "last_sleep": {
+        "name": "Last sleep"
+      },
+      "last_bath": {
+        "name": "Last bath"
+      },
+      "last_growth": {
+        "name": "Last growth entry"
+      },
+      "last_temperature": {
+        "name": "Last temperature entry"
+      },
+      "last_medication": {
+        "name": "Last medication"
+      },
+      "last_milestone": {
+        "name": "Last milestone"
+      },
+      "last_vaccine": {
+        "name": "Last vaccination"
+      },
+      "last_journal": {
+        "name": "Last journal entry"
+      },
+      "last_joy": {
+        "name": "Last joy"
+      },
+      "last_other_activity": {
+        "name": "Last other activity"
+      },
+      "feed_today": {
+        "name": "Feeds today"
+      },
+      "nursing_today": {
+        "name": "Nursings today"
+      },
+      "bottle_today": {
+        "name": "Bottles today"
+      },
+      "diaper_today": {
+        "name": "Diapers today"
+      },
+      "wet_diaper_today": {
+        "name": "Wet diapers today"
+      },
+      "dirty_diaper_today": {
+        "name": "Dirty diapers today"
+      },
+      "sleep_today": {
+        "name": "Sleeps today"
+      },
+      "bath_today": {
+        "name": "Baths today"
+      },
+      "medication_today": {
+        "name": "Medications today"
+      },
+      "last_bottle_amount": {
+        "name": "Last bottle amount"
+      },
+      "bottle_volume_today": {
+        "name": "Bottle volume today"
+      },
+      "last_nursing_duration": {
+        "name": "Last nursing duration"
+      },
+      "nursing_duration_today": {
+        "name": "Nursing time today"
+      },
+      "last_sleep_duration": {
+        "name": "Last sleep duration"
+      },
+      "sleep_duration_today": {
+        "name": "Sleep today"
+      },
+      "last_diaper_status": {
+        "name": "Last diaper status",
+        "state": {
+          "wet": "Wet",
+          "poopy": "Dirty",
+          "mixed": "Mixed",
+          "dry": "Dry"
+        }
+      },
+      "weight": {
+        "name": "Weight"
+      },
+      "length": {
+        "name": "Length"
+      },
+      "head_circumference": {
+        "name": "Head circumference"
+      },
+      "body_temperature": {
+        "name": "Body temperature"
+      },
+      "age": {
+        "name": "Age"
+      },
+      "last_pump": {
+        "name": "Last pumping"
+      },
+      "pump_today": {
+        "name": "Pumpings today"
+      },
+      "pump_volume_today": {
+        "name": "Pumped volume today"
+      },
+      "last_sync": {
+        "name": "Last sync"
+      },
+      "records": {
+        "name": "Stored records"
+      },
+      "sync_devices": {
+        "name": "Devices in sync group"
+      }
+    }
+  },
+  "services": {
+    "refresh": {
+      "name": "Refresh",
+      "description": "Syncs with the Baby Tracker cloud straight away instead of waiting for the next poll.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Account",
+          "description": "The Baby Tracker account to sync."
+        },
+        "full": {
+          "name": "Full resync",
+          "description": "Ignore the stored sync cursors and replay the account's whole history. Slow, and only needed after a parsing change or a lost record."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "entry_not_found": {
+      "message": "Baby Tracker account {target} was not found."
+    },
+    "entry_not_loaded": {
+      "message": "Baby Tracker account {target} is not loaded."
     }
   }
 }

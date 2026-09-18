@@ -1,0 +1,12 @@
+refresh:
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: babytracker
+    full:
+      required: false
+      default: false
+      selector:
+        boolean:
