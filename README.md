@@ -199,6 +199,7 @@ which Home Assistant already ships.
 | `entity.py` | the base entity and the device layout |
 | `sensor.py`, `binary_sensor.py`, `image.py` | the platforms |
 | `services.py` | the `refresh` action |
+| `brand/` | the integration's icon, served locally by Home Assistant 2026.3+ |
 
 The reverse-engineered sync protocol this is built on, in short:
 

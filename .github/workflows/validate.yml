@@ -24,9 +24,6 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          # The domain is not in home-assistant/brands yet; drop this once the
-          # brands pull request is merged.
-          ignore: brands
 
   smoke:
     name: smoke test
