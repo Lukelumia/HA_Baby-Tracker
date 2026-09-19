@@ -11,8 +11,13 @@ and never uploads anything, so it cannot disturb the app's own merge state.
 
 ### HACS
 
-1. Add this repository as a custom repository (category: *Integration*).
+1. HACS → ⋮ → *Custom repositories* → add
+   `https://github.com/Lukelumia/HA_Baby-Tracker` with category *Integration*.
 2. Install **Baby Tracker** and restart Home Assistant.
+
+HACS installs the `babytracker.zip` asset from the latest
+[release](https://github.com/Lukelumia/HA_Baby-Tracker/releases), so it picks up
+tagged versions rather than whatever is on `main`.
 
 ### Manual
 
@@ -172,6 +177,12 @@ uv run ruff format --check .
 uv run pytest
 ```
 
+```bash
+# Loads the integration into the current Home Assistant release, the way a
+# HACS install would. CI runs this weekly to catch upstream breakage.
+uv run --no-project --python 3.14 --with homeassistant python scripts/smoke_test.py
+```
+
 Development dependencies live in the `dev` dependency group in `pyproject.toml`;
 `pytest-homeassistant-custom-component` pins the Home Assistant version the tests
 run against. The integration has no *runtime* requirements — the API client is
@@ -205,3 +216,15 @@ is coerced explicitly in `api.py`.
 ## Disclaimer
 
 Not affiliated with or endorsed by Nighp Software. Use with your own account only.
+
+## Releasing
+
+Tag a commit on `main` and push the tag:
+
+```bash
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+The *Release* workflow stamps `manifest.json` with the version from the tag,
+zips `custom_components/babytracker` into `babytracker.zip` and publishes a
+GitHub release with that asset — which is what HACS installs.

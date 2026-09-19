@@ -24,3 +24,20 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+          # The domain is not in home-assistant/brands yet; drop this once the
+          # brands pull request is merged.
+          ignore: brands
+
+  smoke:
+    name: smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v10.1.0
+        with:
+          enable-cache: true
+      # Deliberately not the version pinned by the test harness: this installs
+      # the current Home Assistant release and loads the integration the way a
+      # HACS install would, so an upstream breaking change surfaces here (the
+      # weekly schedule above catches it even without a push).
+      - run: uv run --no-project --python 3.14 --with homeassistant python scripts/smoke_test.py

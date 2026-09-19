@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        run: |
+          tag="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+
+      # HACS shows the manifest version as the installed version, so it has to
+      # agree with the tag the release is cut from.
+      - name: Stamp the manifest
+        run: |
+          python - <<'PY'
+          import json
+          import pathlib
+
+          manifest = pathlib.Path("custom_components/babytracker/manifest.json")
+          data = json.loads(manifest.read_text())
+          data["version"] = "${{ steps.version.outputs.version }}"
+          manifest.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+          git diff --stat
+
+      # The zip holds the integration's files at its root: that is the layout
+      # HACS unpacks straight into custom_components/babytracker.
+      - name: Build the HACS zip
+        run: |
+          cd custom_components/babytracker
+          zip -r ../../babytracker.zip . -x "*__pycache__*" "*.pyc"
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --generate-notes \
+            babytracker.zip

@@ -105,3 +105,5 @@ convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["SLF001"]
+# Standalone CI script: it is not a package and reporting is its whole job.
+"scripts/*" = ["INP001", "T20"]
